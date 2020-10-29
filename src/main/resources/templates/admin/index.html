@@ -11,5 +11,10 @@
         Alexander Pierce - Web Developer
         <small>Member since Nov. 2012</small>
     </p>
+
+    <div th:object="${user}">
+        <p th:utext="*{lastname}">test</p>
+
+    </div>
 </body>
 </html>
