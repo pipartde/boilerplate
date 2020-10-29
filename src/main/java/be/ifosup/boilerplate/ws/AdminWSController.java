@@ -1,14 +1,13 @@
-package be.ifosup.boilerplate.controller.admin;
+package be.ifosup.boilerplate.ws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import be.ifosup.boilerplate.models.UserDTO;
 import be.ifosup.boilerplate.services.UsersService;
@@ -16,27 +15,23 @@ import be.ifosup.boilerplate.services.UsersService;
 /**
  * Admin controller
  */
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RestController
+@RequestMapping("/ws/admin")
+public class AdminWSController {
 
     private final UsersService usersService;
 
     @Autowired
-    public AdminController(UsersService usersService) {
+    public AdminWSController(UsersService usersService) {
         this.usersService = usersService;
     }
 
     @GetMapping
-    public String adminPage(Model model) {
+    public UserDTO adminPage() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        UserDTO user = usersService.getUser(username);
-
-
-        model.addAttribute("user", user);
-        return "admin/index";
+        return usersService.getUser(username);
     }
 }
