@@ -6,5 +6,16 @@
 </head>
 <body>
     <h1>Admin page</h1>
+    <div>
+       <form th:action="@{/admin/create}" method="post" th:object="${adminForm}">
+           <div>
+               <label>email</label>
+                <div>
+                    <input type="text" th:field="*{email}"/>
+                </div>
+               <button type="submit">Submit</button>
+           </div>
+       </form>
+    </div>
 </body>
 </html>
